@@ -13,7 +13,7 @@ app.use(express.static('public'));
 app.get('/url/:longUrl', (req, res) => {
   Urls.findOne({ url: req.params.longUrl }, (err, doc) => {
     if (doc) {
-      res.send({ key: bijective.encode(doc.id) });
+      res.send({ key: bijective.encode(doc._id) });
     } else {
       const newUrl = Urls({
         url: req.params.longUrl,
@@ -21,7 +21,7 @@ app.get('/url/:longUrl', (req, res) => {
 
       newUrl.save((err) => {
         if (err) console.log(err);
-        res.send({ key: bijective.encode(newUrl.id) });
+        res.send({ key: bijective.encode(newUrl._id) });
       });
     }
   });

@@ -13,7 +13,7 @@ const UrlsSchema = new Schema({
   created_at: Date,
 });
 
-UrlsSchema.pre('save', function (next) {
+UrlsSchema.pre('save', (next) => {
   const self = this;
   sequences.findOneAndUpdate(
     { _id: 'url_count' },

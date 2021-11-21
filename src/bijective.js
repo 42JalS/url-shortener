@@ -13,7 +13,7 @@ module.exports.encode = (inputNum) => {
   return encoded;
 };
 
-module.exports.decode = (intpuStr) => {
+module.exports.decode = (inputStr) => {
   let str = inputStr;
   let decoded = 0;
   while (str) {

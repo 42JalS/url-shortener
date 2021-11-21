@@ -6,12 +6,12 @@ const $submit = document.querySelector('#submit');
 $submit.addEventListener('click', async (e) => {
 	e.preventDefault();
 	const longUrl = encodeURIComponent($longUrl.value);
-	let response = await fetch(`${APT_SERVER}/url/${longUrl}`, {
+	const response = await fetch(`${APT_SERVER}/url/${longUrl}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
 		},
-	})
+	});
 	if (response.status === 200) {
 		success(await response.json());
 	} else {
@@ -22,7 +22,7 @@ $submit.addEventListener('click', async (e) => {
 const success = (data) => {
 	console.log(data.key);
 	const $shortUrl = document.querySelector('#shortUrl');
-	$shortUrl.textContent = `${data.host}/${data.key}`;
+	$shortUrl.textContent = `${APT_SERVER}/${data.key}`;
 }
 
 console.log(".")

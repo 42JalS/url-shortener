@@ -4,6 +4,7 @@ const service = require('../services/urls.service');
 exports.changeLongUrlToShortUrl = async (req, res, next) => {
   try {
     const { longUrl } = req.params;
+    console.log(longUrl);
     const shortUrl = await service.getShortUrl(longUrl);
 
     res.status(httpStatus.OK).send({

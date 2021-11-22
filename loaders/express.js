@@ -1,9 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
-const apiRoutes = require('../routes');
-
-const router = express.Router();
-const urlsController = require('../controllers/urls.controller');
+const routes = require('../routes');
 
 module.exports = async app => {
   app.get('/status', (req, res) => {
@@ -14,10 +11,9 @@ module.exports = async app => {
   });
 
   app.use(express.static('public'));
-  app.use(morgan('dev'));
+  app.use(morgan('combined'));
 
-  app.use('/url', apiRoutes);
-  router.get('/', urlsController.redirectShortUrlToLongUrl);
+  app.use('/', routes);
 
   return app;
 };

@@ -2,11 +2,11 @@ const httpStatus = require('http-status');
 const service = require('../services/urls.service');
 
 exports.changeLongUrlToShortUrl = async (req, res, next) => {
+  console.log('changeLongUrlToShortUrl');
+  console.log(req);
   try {
     const { longUrl } = req.params;
-    console.log(longUrl);
     const shortUrl = await service.getShortUrl(longUrl);
-
     res.status(httpStatus.OK).send({
       key: shortUrl,
     });
@@ -17,11 +17,14 @@ exports.changeLongUrlToShortUrl = async (req, res, next) => {
 };
 
 exports.redirectShortUrlToLongUrl = async (req, res, next) => {
+  console.log(req);
   try {
-    const { key } = req.params;
-    const longUrl = await service.getLongUrl(key);
-
-    res.redirect(longUrl);
+    const { shortUrl } = req.params;
+    const longUrl = await service.getLongUrl(shortUrl);
+    if (longUrl) {
+      console.log('longUrl: ', longUrl);
+      res.redirect(longUrl);
+    }
   } catch (err) {
     console.error(err);
     next(err);

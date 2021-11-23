@@ -99,7 +99,7 @@ $submitConvertedUrl.addEventListener('click', async e => {
     const data = await response.json();
     console.log(data.key);
     const $resultConvertedUrl = document.querySelector('#resultConvertedUrl');
-    $resultConvertedUrl.textContent = `${APT_SERVER}/${data.key}`;
+    $resultConvertedUrl.textContent = `${data.key}`;
   } else {
     console.log(`error: ${response.status}`);
   }

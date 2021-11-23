@@ -1,5 +1,6 @@
 const express = require('express');
 const urlsRouter = require('./urls.route');
+const controller = require('../controllers/urls.controller');
 
 const router = express.Router();
 const urlsController = require('../controllers/urls.controller');
@@ -19,6 +20,6 @@ router.get('/api/status', (req, res) => {
 
 router.use('/url', urlsRouter);
 
+router.get('/original-url/:shortUrl', controller.changeShortUrlToOriginUrl);
 router.get('/:shortUrl', urlsController.redirectShortUrlToLongUrl);
-
 module.exports = router;

@@ -3,12 +3,12 @@ const service = require('../services/urls.service');
 
 exports.changeOrignalUrlToConvertedUrl = async (req, res, next) => {
   console.log('changeOrignalUrlToConvertedUrl');
-  // console.log(req);
+  //console.log(req);
   try {
-    const { longUrl } = req.params;
-    const shortUrl = await service.getShortUrl(longUrl);
+    const { orignalUrl } = req.params;
+    const convertedUrl = await service.getConvertedUrl(orignalUrl);
     res.status(httpStatus.OK).send({
-      key: shortUrl,
+      key: convertedUrl,
     });
   } catch (err) {
     console.error(err);

@@ -20,6 +20,8 @@ router.get('/api/status', (req, res) => {
 
 router.use('/url', urlsRouter);
 
-router.get('/original-url/:shortUrl', controller.changeShortUrlToOriginUrl);
 router.get('/:convertedUrl', urlsController.redirectConvertedUrlToOrignalUrl);
+
+router.get('/original-url/:shortUrl', controller.changeShortUrlToOriginUrl);
+
 module.exports = router;

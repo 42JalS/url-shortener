@@ -1,19 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>URL Shortener</title>
-  <script defer src="index.js"></script>
-</head>
-<body>
-  <form>
-    <input id="longUrl" type="url" name="longUrl" placeholder="https://...">
-    <button id="submit" type="submit">Shorten!</button>
-  </form>
-  <section>
-    <h2 id="shortUrl"></h2>
-  </section>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Shortener</title>
+    <script defer src="index.js"></script>
+  </head>
+  <body>
+    <section>
+      <h2>기본 단축 URL 생성하기</h2>
+      <code>/url</code>
+      <form>
+        <input id="basicUrl" type="url" name="basicUrl" placeholder="https://..." />
+        <button id="submitBasicUrl" type="submit">만들기!</button>
+      </form>
+      <div>
+        <h2 id="resultBasicUrl"></h2>
+      </div>
+    </section>
+    <hr />
+    <section>
+      <h2>이모지 단축 URL 생성하기</h2>
+      <code>/emoji-url</code>
+      <form>
+        <input id="emojiUrl" type="url" name="emojiUrl" placeholder="https://..." />
+        <button id="submitEmojiUrl" type="submit">만들기!</button>
+      </form>
+      <div>
+        <h2 id="resultEmojiUrl"></h2>
+      </div>
+    </section>
+    <hr />
+    <section>
+      <h2>원하는 단어로 단축 URL 생성하기</h2>
+      <code>/custom-url</code>
+      <form>
+        <input id="customUrl" type="url" name="customUrl" placeholder="https://..." />
+        <button id="submitCustomUrl" type="submit">만들기!</button>
+      </form>
+      <div>
+        <h2 id="resultCustomUrl"></h2>
+      </div>
+    </section>
+    <hr />
+    <section>
+      <h2>OG 타이틀로 단축 URL 생성하기</h2>
+      <code>/title-url</code>
+      <form>
+        <input id="titleUrl" type="url" name="titleUrl" placeholder="https://..." />
+        <button id="submitTitleUrl" type="submit">만들기!</button>
+      </form>
+      <div>
+        <h2 id="resultTitleUrl"></h2>
+      </div>
+    </section>
+    <hr />
+    <section>
+      <h2>단축 URL -> 원본 가져오기</h2>
+      <code>/original-url</code>
+      <form>
+        <input id="convertedUrl" type="url" name="convertedUrl" placeholder="https://..." />
+        <button id="submitConvertedUrl" type="submit">원본!</button>
+      </form>
+      <div>
+        <h2 id="resultConvertedUrl"></h2>
+      </div>
+    </section>
+  </body>
 </html>

@@ -19,6 +19,6 @@ router.get('/api/status', (req, res) => {
 
 router.use('/url', urlsRouter);
 
-router.get('/:shortUrl', urlsController.redirectShortUrlToLongUrl);
+router.get('/:convertedUrl', urlsController.redirectConvertedUrlToOrignalUrl);
 
 module.exports = router;

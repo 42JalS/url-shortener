@@ -1,11 +1,14 @@
 const httpStatus = require('http-status');
 const service = require('../services/title.urls.service');
 
-exports.changeOrignalUrlToTitleConvertedUrl = async (req, res, next) => {
-  console.log('changeOrignalUrlToConvertedUrl');
+exports.changeOriginalUrlToTitleConvertedUrl = async (req, res, next) => {
+  console.log('changeOriginalUrlToTitleConvertedUrl');
   try {
-    const { orignalUrl } = req.params;
-    const convertedUrl = await service.getTitleConvertedUrl(orignalUrl);
+    const { originalUrl } = req.params;
+    console.log(originalUrl);
+
+    const convertedUrl = await service.getTitleConvertedUrl(originalUrl);
+    console.log(convertedUrl);
     res.status(httpStatus.OK).send({
       key: convertedUrl,
     });

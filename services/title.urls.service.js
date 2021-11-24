@@ -1,19 +1,23 @@
 const Urls = require('../models/urls');
 const metadata = require('../utils/metadata');
+const urlService = require('./urls.service');
 
-const getTitleConvertedUrl = async (orignalUrl) =>{
-    const title = metadata.getTitle(orignalUrl);
 
+const getConvertedTitleUrl = async (originalUrl) =>{
+    console.log("getTitleConvertedUrl");
+    const title = await metadata.getTitle(originalUrl);
+
+    console.log(title);
+    
     // if null
-    if(!title){
-        return title;
-    }
+    // if(title === undefined){
+    //     return title;
+    // }
 
-    const doc = await Urls.findOne({ orignalUrl, convertedUrl: title});
-    if (!doc) {
-        Urls.create({ orignalUrl, convertedUrl:title});
-    }
-    return title;
+    const convertedUrl = await urlService.getConvertedUrl(originalUrl, title);
+
+    console.log(convertedUrl);
+    return convertedUrl;
 };
 
-exports.getTitleConvertedUrl = getTitleConvertedUrl;
+exports.getTitleConvertedUrl = getConvertedTitleUrl;

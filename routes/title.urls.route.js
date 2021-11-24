@@ -3,5 +3,5 @@ const controller = require('../controllers/title.urls.controller');
 
 const router = express.Router();
 
-router.get('/:orignalUrl', controller.changeOrignalUrlToTitleConvertedUrl);
+router.get('/:originalUrl', controller.changeOriginalUrlToTitleConvertedUrl);
 module.exports = router;

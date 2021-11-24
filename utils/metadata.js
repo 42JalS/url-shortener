@@ -4,11 +4,12 @@ const cheerio = require('cheerio');
 exports.getTitle = async (originalUrl) => {
     const res = await axios.get(originalUrl);
     const {data} = res;
-    console.log(data);
+    console.log("getTitle");
     const $ = cheerio.load(data);
     const title = $('head').find('title').text().trim();
     console.log("title");
     console.log(title);
+    return title;
 }
 
 exports.getMetaDataList = async (originalUrl) => {

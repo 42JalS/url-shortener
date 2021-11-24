@@ -20,7 +20,7 @@ router.get('/api/status', (req, res) => {
 });
 
 router.use('/url', urlsRouter);
-router.use('title-url', titleUrlRouter);
+router.use('/title-url', titleUrlRouter);
 
 // TEST
 router.use('/test', (req, res) => {

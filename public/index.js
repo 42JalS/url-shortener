@@ -62,9 +62,9 @@ $submitCustomUrl.addEventListener('click', async e => {
   });
   if (response.status === 200) {
     const data = await response.json();
-    console.log(data.customWord);
+    console.log(data.key);
     const $resultCustomUrl = document.querySelector('#resultCustomUrl');
-    $resultCustomUrl.textContent = `${APT_SERVER}/${data.customWord}`;
+    $resultCustomUrl.textContent = `${APT_SERVER}/${data.key}`;
   } else {
     console.log(`error: ${response.status}`);
   }

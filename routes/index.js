@@ -1,5 +1,4 @@
 const express = require('express');
-const path = require('path');
 const urlsRouter = require('./urls.route');
 
 const router = express.Router();

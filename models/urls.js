@@ -2,25 +2,24 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const UrlsSchema = new Schema({
-  original_url: {
-    type: String,
-    required: true,
+const UrlsSchema = new Schema(
+  {
+    originalUrl: {
+      type: String,
+      required: true,
+    },
+    convertedUrl: {
+      type: String,
+      required: true,
+      index: true,
+    },
+    _opengraphId: {
+      type: Schema.Types.ObjectId,
+      ref: 'opengraph',
+    },
   },
-  converted_url: {
-    type: String,
-    required: true,
-    index: true,
-  },
-  _opengraph_id: {
-    type: Schema.Types.ObjectId,
-    ref: 'opengraph',
-  },
-  created_at: {
-    type: Date,
-    required: true,
-  },
-});
+  { timestamps: { createdAt: 'created_at' } }
+);
 
 // eslint-disable-next-line func-names
 const preSaveUrlsSchema = function (next) {

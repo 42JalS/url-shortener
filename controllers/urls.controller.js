@@ -3,7 +3,6 @@ const service = require('../services/urls.service');
 
 exports.changeOriginalUrlToConvertedUrl = async (req, res, next) => {
   console.log('changeOriginalUrlToConvertedUrl');
-  // console.log(req);
   try {
     const { originalUrl } = req.params;
     const convertedUrl = await service.getConvertedUrl(originalUrl);

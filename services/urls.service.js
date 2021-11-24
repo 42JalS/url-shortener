@@ -20,7 +20,7 @@ const saveNewUrl = async (originalUrl, customWord = null) => {
   await newUrl.save();
 };
 
-exports.getConverted = async (originalUrl, customWord = null) => {
+exports.getConvertedUrl = async (originalUrl, customWord = null) => {
   console.log(originalUrl, '->', customWord);
   try {
     const doc = await Urls.findOne({ originalUrl });

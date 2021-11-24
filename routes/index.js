@@ -21,7 +21,7 @@ router.get('/api/status', (req, res) => {
 
 router.use('/url', urlsRouter);
 
-router.get('/original-url/:ConvertedUrl', OriginalController.changeConvertedUrlToOriginalUrl);
+router.get('/original-url/:convertedUrl', OriginalController.changeConvertedUrlToOriginalUrl);
 
 // TEST
 router.use('/test', (req, res) => {

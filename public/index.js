@@ -43,15 +43,22 @@ $submitEmojiUrl.addEventListener('click', async e => {
 });
 
 const $customUrl = document.querySelector('#customUrl');
+const $customWord = document.querySelector('#customWord');
 const $submitCustomUrl = document.querySelector('#submitCustomUrl');
 $submitCustomUrl.addEventListener('click', async e => {
   e.preventDefault();
   const originalURL = encodeURIComponent($basicUrl.value);
   const customUrl = encodeURIComponent($customUrl.value);
-  const response = await fetch(`${APT_SERVER}/custom-url/?originalURL=${originalURL}&&customUrl=${customUrl}`, {
-    method: 'GET',
+  // TODO: validate customWord
+  const customWord = $customWord.value;
+  const response = await fetch(`${APT_SERVER}/custom-url`, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+    },
+    body: {
+      customUrl,
+      customWord,
     },
   });
   if (response.status === 200) {

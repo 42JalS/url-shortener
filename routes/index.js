@@ -1,9 +1,9 @@
 const express = require('express');
 const urlsRouter = require('./urls.route');
-const controller = require('../controllers/urls.controller');
 
 const router = express.Router();
 const urlsController = require('../controllers/urls.controller');
+const OriginalController = require('../controllers/urls.original.controller')
 
 /**
  * GET /status : API Status
@@ -22,6 +22,6 @@ router.use('/url', urlsRouter);
 
 router.get('/:convertedUrl', urlsController.redirectConvertedUrlToOrignalUrl);
 
-router.get('/original-url/:shortUrl', controller.changeShortUrlToOriginUrl);
+router.get('/original-url/:ConvertedUrl', OriginalController.changeConvertedUrlToOriginalUrl);
 
 module.exports = router;

@@ -1,28 +1,47 @@
 const Urls = require('../models/urls');
+const Sequences = require('../models/sequences');
 const bijective = require('../utils/bijective');
 
-exports.getShortUrl = async longUrl => {
-  console.log(longUrl);
+const getNextUrlCount = async () => {
+  const sequence = await Sequences.findOne({ _id: 'url_count' });
+  if (sequence) {
+    return bijective.encode(sequence.seq);
+  }
+  return 'a'; // first url
+};
+
+const saveNewUrl = async (originalUrl, convertedUrl) => {
+  const newDoc = new Urls({
+    originalUrl,
+    convertedUrl,
+  });
+  console.log('🥳 Save New URL: ', newDoc);
+  await newDoc.save();
+  return newDoc;
+};
+
+exports.getConvertedUrl = async (originalUrl, customWord = null) => {
+  console.log(`👀 Convert! ${originalUrl} -> ${customWord == null ? '"seq count"' : customWord}`);
   try {
-    const doc = await Urls.findOne({ url: longUrl });
+    const doc = await Urls.findOne({ originalUrl });
     if (doc) {
-      return bijective.encode(doc._id);
+      return doc.convertedUrl;
     }
-    const newUrl = await Urls.create({ url: longUrl });
-    console.log('newUrl', newUrl);
-    return bijective.encode(newUrl._id);
+    const convertedUrl = customWord || await getNextUrlCount();
+    const newDoc = await saveNewUrl(originalUrl, convertedUrl);
+    return newDoc.convertedUrl;
   } catch (err) {
     console.error(err);
   }
 };
 
-exports.getLongUrl = async key => {
+exports.getOriginalUrl = async convertedUrl => {
   try {
-    const doc = await Urls.findOne({ _id: bijective.decode(key) });
+    const doc = await Urls.findOne({ convertedUrl });
     if (doc) {
-      return doc.url;
+      return doc.originalUrl;
     }
-    return '/';
+    return null;
   } catch (err) {
     console.error(err);
   }

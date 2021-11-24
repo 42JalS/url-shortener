@@ -21,6 +21,7 @@ exports.redirectConvertedUrlToOriginalUrl = async (req, res, next) => {
     if (originalUrl) {
       return res.redirect(originalUrl);
     }
+    return res.redirect('/');
   } catch (err) {
     console.error(err);
     next(err);

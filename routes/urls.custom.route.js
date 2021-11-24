@@ -4,6 +4,9 @@ const controller = require('../controllers/urls.custom.controller');
 
 const router = express.Router();
 
-router.get('', controller.changeUrlToCustomUrl);
+router.post('/', controller.changeOriginalUrlToCustomUrl);
+// router.post('/', (req, res) => {
+// 	console.log("aaaassss");
+// } );
 
 module.exports = router;

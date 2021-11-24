@@ -1,15 +1,19 @@
 const httpStatus = require('http-status');
 const service = require('../services/urls.service');
 
-exports.changeUrlToCustomUrl = async (req, res, next) => {
-  console.log('changeUrlToCustomUrl');
+exports.changeOriginalUrlToCustomUrl = async (req, res, next) => {
+  console.log('changeOriginalUrlToCustomUrl');
   console.log(req);
   try {
-    const { originalUrl } = req.params.originalURL;
-    const { customUrl } = req.params.customUrl;
-    await service.getCustomUrl(originalUrl, customUrl);
+    console.log("ajajajajaj");
+    console.dir(req.body);
+    const { customUrl } = req.body.customUrl;
+    const { customWord } = req.body.customWord;
+    console.log("customUrl", customUrl);
+    console.log("customWord", customWord);
+    await service.getConvertedUrl(customUrl, customWord);
     res.status(httpStatus.OK).send({
-      key: customUrl,      
+      key: customWord,      
     });
   } catch (err) {
     console.error(err);

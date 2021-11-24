@@ -7,9 +7,9 @@ const SequencesSchema = new Schema(
     _id: { type: String, required: true },
     seq: { type: Number, default: 0 },
   },
-  { timestamps: { updatedAt: 'updated_at' } }
+  { timestamps: true }
 );
 
-const sequence = mongoose.model('sequence', SequencesSchema);
+const sequences = mongoose.model('sequences', SequencesSchema);
 
-module.exports = sequence;
+module.exports = sequences;

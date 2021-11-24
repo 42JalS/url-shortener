@@ -19,7 +19,7 @@ const OpengraphsSchema = new Schema(
       type: Buffer,
     },
   },
-  { timestamps: { createdAt: 'created_at' } }
+  { timestamps: true }
 );
 
 const opengraph = mongoose.model('opengraph', OpengraphsSchema);

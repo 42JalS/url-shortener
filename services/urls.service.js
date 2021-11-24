@@ -1,33 +1,34 @@
 const Urls = require('../models/urls');
 const Sequences = require('../models/sequences');
+const bijective = require('../utils/bijective');
 
 const getNextUrlCount = async () => {
-  const sequence = await Sequences.findOneAndUpdate(
-    { _id: 'url_count' },
-    { $inc: { seq: 1 } },
-    { upsert: true, new: true },
-  );
-  return sequence.seq;
+  const sequence = await Sequences.findOne({ _id: 'url_count' });
+  if (sequence) {
+    return bijective.encode(sequence.seq);
+  }
+  return 'a'; // first url
 };
 
-const saveNewUrl = async (originalUrl, customWord = null) => {
-  const convertedUrl = customWord || getNextUrlCount();
-  const newUrl = new Urls({
+const saveNewUrl = async (originalUrl, convertedUrl) => {
+  const newDoc = new Urls({
     originalUrl,
     convertedUrl,
   });
-  console.log('🥳newUrl: ', newUrl);
-  await newUrl.save();
+  console.log('🥳 Save New URL: ', newDoc);
+  await newDoc.save();
+  return newDoc;
 };
 
 exports.getConvertedUrl = async (originalUrl, customWord = null) => {
-  console.log(originalUrl, '->', customWord);
+  console.log(`👀 Convert! ${originalUrl} -> ${customWord == null ? '"seq count"' : customWord}`);
   try {
     const doc = await Urls.findOne({ originalUrl });
     if (doc) {
       return doc.convertedUrl;
     }
-    const newDoc = await saveNewUrl(originalUrl, customWord);
+    const convertedUrl = customWord || await getNextUrlCount();
+    const newDoc = await saveNewUrl(originalUrl, convertedUrl);
     return newDoc.convertedUrl;
   } catch (err) {
     console.error(err);
@@ -38,7 +39,7 @@ exports.getOriginalUrl = async convertedUrl => {
   try {
     const doc = await Urls.findOne({ convertedUrl });
     if (doc) {
-      return doc.url;
+      return doc.originalUrl;
     }
     return null;
   } catch (err) {

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Sequences = require('./sequences');
 
 const { Schema } = mongoose;
 
@@ -18,14 +19,16 @@ const UrlsSchema = new Schema(
       ref: 'opengraph',
     },
   },
-  { timestamps: { createdAt: 'created_at' } }
+  { timestamps: true }
 );
 
 // eslint-disable-next-line func-names
 const preSaveUrlsSchema = function (next) {
-  const doc = this;
-  doc.created_at = new Date();
-  next();
+  // NOTE: DO NOT CHANGE THIS FUNCTION TO AN ARROW FUNCTION!
+  Sequences.findOneAndUpdate({ _id: 'url_count' }, { $inc: { seq: 1 } }, { upsert: true, new: true }, (error) => {
+    if (error) return next(error);
+    next();
+  });
 };
 
 UrlsSchema.pre('save', preSaveUrlsSchema);

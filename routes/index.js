@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const urlsRouter = require('./urls.route');
+const emojiUrlsRouter = require('./urls.emoji.route');
 
 const router = express.Router();
 const urlsController = require('../controllers/urls.controller');
@@ -19,6 +20,7 @@ router.get('/api/status', (req, res) => {
 });
 
 router.use('/url', urlsRouter);
+router.use('/emoji-url', emojiUrlsRouter);
 
 // TEST
 router.use('/test', (req, res) => {

@@ -10,7 +10,7 @@ const getNextUrlCount = async () => {
   return sequence.seq;
 };
 
-const saveNewUrl = async (originalUrl, customWord) => {
+const saveNewUrl = async (originalUrl, customWord = null) => {
   const convertedUrl = customWord || getNextUrlCount();
   const newUrl = new Urls({
     originalUrl,
@@ -20,7 +20,7 @@ const saveNewUrl = async (originalUrl, customWord) => {
   await newUrl.save();
 };
 
-exports.getConverted = async (originalUrl, customWord) => {
+exports.getConverted = async (originalUrl, customWord = null) => {
   console.log(originalUrl, '->', customWord);
   try {
     const doc = await Urls.findOne({ originalUrl });
@@ -40,7 +40,7 @@ exports.getOriginalUrl = async convertedUrl => {
     if (doc) {
       return doc.url;
     }
-    return '/';
+    return null;
   } catch (err) {
     console.error(err);
   }

@@ -1,5 +1,6 @@
 const express = require('express');
 const urlsRouter = require('./urls.route');
+const customRouter = require('./urls.custom.route');
 
 const router = express.Router();
 const urlsController = require('../controllers/urls.controller');
@@ -18,6 +19,7 @@ router.get('/api/status', (req, res) => {
 });
 
 router.use('/url', urlsRouter);
+router.use('/custom-url', customRouter);
 
 router.get('/:convertedUrl', urlsController.redirectConvertedUrlToOrignalUrl);
 

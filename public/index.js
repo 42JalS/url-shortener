@@ -46,8 +46,9 @@ const $customUrl = document.querySelector('#customUrl');
 const $submitCustomUrl = document.querySelector('#submitCustomUrl');
 $submitCustomUrl.addEventListener('click', async e => {
   e.preventDefault();
+  const originalURL = encodeURIComponent($basicUrl.value);
   const customUrl = encodeURIComponent($customUrl.value);
-  const response = await fetch(`${APT_SERVER}/custom-url/${customUrl}`, {
+  const response = await fetch(`${APT_SERVER}/custom-url/?originalURL=${originalURL}&&customUrl=${customUrl}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -55,9 +56,9 @@ $submitCustomUrl.addEventListener('click', async e => {
   });
   if (response.status === 200) {
     const data = await response.json();
-    console.log(data.key);
+    console.log(data.customUrl);
     const $resultCustomUrl = document.querySelector('#resultCustomUrl');
-    $resultCustomUrl.textContent = `${APT_SERVER}/${data.key}`;
+    $resultCustomUrl.textContent = `${APT_SERVER}/${data.customUrl}`;
   } else {
     console.log(`error: ${response.status}`);
   }

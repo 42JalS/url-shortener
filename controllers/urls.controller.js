@@ -1,12 +1,12 @@
 const httpStatus = require('http-status');
 const service = require('../services/urls.service');
 
-exports.changeOrignalUrlToConvertedUrl = async (req, res, next) => {
-  console.log('changeOrignalUrlToConvertedUrl');
+exports.changeOriginalUrlToConvertedUrl = async (req, res, next) => {
+  console.log('changeOriginalUrlToConvertedUrl');
   //console.log(req);
   try {
-    const { orignalUrl } = req.params;
-    const convertedUrl = await service.getConvertedUrl(orignalUrl);
+    const { originalUrl } = req.params;
+    const convertedUrl = await service.getConvertedUrl(originalUrl);
     res.status(httpStatus.OK).send({
       key: convertedUrl,
     });
@@ -16,14 +16,14 @@ exports.changeOrignalUrlToConvertedUrl = async (req, res, next) => {
   }
 };
 
-exports.redirectConvertedUrlToOrignalUrl = async (req, res, next) => {
+exports.redirectConvertedUrlToOriginalUrl = async (req, res, next) => {
   console.log(req);
   try {
     const { convertedUrl } = req.params;
-    const orignalUrl = await service.getOrignalUrl(convertedUrl);
-    if (orignalUrl) {
-      console.log('orignalUrl: ', orignalUrl);
-      res.redirect(orignalUrl);
+    const originalUrl = await service.getOriginalUrl(convertedUrl);
+    if (originalUrl) {
+      console.log('originalUrl: ', originalUrl);
+      res.redirect(originalUrl);
     }
   } catch (err) {
     console.error(err);

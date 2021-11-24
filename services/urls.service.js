@@ -1,14 +1,14 @@
 const Urls = require('../models/urls');
 const bijective = require('../utils/bijective');
 
-exports.getConvertedUrl = async orignalUrl => {
-  console.log(orignalUrl);
+exports.getConvertedUrl = async originalUrl => {
+  console.log(originalUrl);
   try {
-    const doc = await Urls.findOne({ url: orignalUrl });
+    const doc = await Urls.findOne({ url: originalUrl });
     if (doc) {
       return bijective.encode(doc._id);
     }
-    const newUrl = await Urls.create({ url: orignalUrl });
+    const newUrl = await Urls.create({ url: originalUrl });
     console.log('newUrl', newUrl);
     return bijective.encode(newUrl._id);
   } catch (err) {
@@ -16,7 +16,7 @@ exports.getConvertedUrl = async orignalUrl => {
   }
 };
 
-exports.getOrignalUrl = async key => {
+exports.getOriginalUrl = async key => {
   try {
     const doc = await Urls.findOne({ _id: bijective.decode(key) });
     if (doc) {

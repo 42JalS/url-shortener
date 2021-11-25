@@ -47,7 +47,7 @@ const $customWord = document.querySelector('#customWord');
 const $submitCustomUrl = document.querySelector('#submitCustomUrl');
 $submitCustomUrl.addEventListener('click', async e => {
   e.preventDefault();
-  const customUrl = encodeURIComponent($customUrl.value);
+  const customUrl = $customUrl.value;
   // TODO: validate customWord
   const customWord = $customWord.value;
   const response = await fetch(`${APT_SERVER}/custom-url`, {
@@ -56,8 +56,8 @@ $submitCustomUrl.addEventListener('click', async e => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      "customUrl" : customUrl,
-      "customWord" : customWord
+      customUrl,
+      customWord
     })
   });
   if (response.status === 200) {

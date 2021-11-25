@@ -4,10 +4,10 @@ const service = require('../services/title.urls.service');
 exports.changeOriginalUrlToTitleConvertedUrl = async (req, res, next) => {
   console.log('changeOriginalUrlToTitleConvertedUrl');
   try {
-    const { originalUrl } = req.params;
-    console.log(originalUrl);
+    const { titleUrl } = req.body;
+    console.log(titleUrl);
 
-    const convertedUrl = await service.getTitleConvertedUrlOrNULL(originalUrl);
+    const convertedUrl = await service.getTitleConvertedUrlOrNULL(titleUrl);
     console.log(convertedUrl);
     if(convertedUrl === null){
         return res.status(httpStatus.BAD_REQUEST).send({

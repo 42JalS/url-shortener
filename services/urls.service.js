@@ -23,11 +23,11 @@ const saveNewUrl = async (originalUrl, convertedUrl) => {
 exports.getConvertedUrl = async (originalUrl, customWord = null) => {
   console.log(`👀 Convert! ${originalUrl} -> ${customWord == null ? '"seq count"' : customWord}`);
   try {
-    const doc = await Urls.findOne({ originalUrl });
-    if (doc) {
-      return doc.convertedUrl;
-    }
     const convertedUrl = customWord || await getNextUrlCount();
+    const doc = await Urls.findOne({ convertedUrl });
+    if (doc) {
+      return null;
+    }
     const newDoc = await saveNewUrl(originalUrl, convertedUrl);
     return newDoc.convertedUrl;
   } catch (err) {

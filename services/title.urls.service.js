@@ -1,17 +1,17 @@
-const Urls = require('../models/urls');
 const metadata = require('../utils/metadata');
 const urlService = require('./urls.service');
 
 const removeSpecificType= (str)=> {
-    const reg = /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/ ]/gim;
-    if(reg.test(str)){
-      return str.replace(reg, "-");    
-    } 
-      return str;
-      
-  }
-const getConvertedTitleUrl = async (originalUrl) =>{
+  const reg = /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/ ]/gim;
+  if(reg.test(str)){
+    return str.replace(reg, "-");    
+  } 
+    return str;
+}
+
+const getTitleConvertedUrl = async (originalUrl) =>{
     console.log("getTitleConvertedUrl");
+    
     const title = await metadata.getTitle(originalUrl);
 
     console.log(title);
@@ -21,10 +21,10 @@ const getConvertedTitleUrl = async (originalUrl) =>{
 
     const filteredTitle = removeSpecificType(title);
     console.log(title);
-    const convertedUrl = await urlService.getConvertedUrl(originalUrl, filteredTitle);
+    const convertedUrl = await urlService.getConvertedUrlOrNULL(originalUrl, filteredTitle);
 
     console.log(convertedUrl);
     return convertedUrl;
 };
 
-exports.getTitleConvertedUrl = getConvertedTitleUrl;
+exports.getTitleConvertedUrl = getTitleConvertedUrl;

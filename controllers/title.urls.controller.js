@@ -7,9 +7,14 @@ exports.changeOriginalUrlToTitleConvertedUrl = async (req, res, next) => {
     const { titleUrl } = req.body;
     console.log(titleUrl);
 
-    const convertedUrl = await service.getTitleConvertedUrl(titleUrl);
+    const convertedUrl = await service.getTitleConvertedUrlOrNULL(titleUrl);
     console.log(convertedUrl);
-    res.status(httpStatus.OK).send({
+    if(convertedUrl === null){
+        return res.status(httpStatus.BAD_REQUEST).send({
+          message: 'Reject get title-url some reason',
+      });
+    }
+    return res.status(httpStatus.OK).send({
       key: convertedUrl,
     });
   } catch (err) {

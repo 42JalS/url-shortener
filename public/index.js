@@ -55,10 +55,10 @@ $submitCustomUrl.addEventListener('click', async e => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: {
-      customUrl,
-      customWord,
-    },
+    body: JSON.stringify({
+      "customUrl" : customUrl,
+      "customWord" : customWord
+    })
   });
   if (response.status === 200) {
     const data = await response.json();

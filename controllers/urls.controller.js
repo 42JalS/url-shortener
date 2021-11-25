@@ -3,13 +3,14 @@ const service = require('../services/urls.service');
 
 exports.changeOriginalUrlToConvertedUrl = async (req, res, next) => {
   try {
-    const { originalUrl } = req.params;
+    const { basicUrl } = req.body;
+        const { originalUrl } = req.params;
     if (!originalUrl) {
       return res.status(httpStatus.BAD_REQUEST).send({
         message: 'No original url provided',
       });
     }
-    const convertedUrl = await service.getConvertedUrl(originalUrl);
+    const convertedUrl = await service.getConvertedUrl(basicUrl);
     return res.status(httpStatus.OK).send({
       key: convertedUrl,
     });

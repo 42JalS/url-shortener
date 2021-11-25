@@ -34,15 +34,3 @@ exports.getConvertedEmojiUrl = async (originalUrl, customWord = null) => {
     console.error(err);
   }
 };
-
-exports.getOriginalUrl = async convertedUrl => {
-  try {
-    const doc = await Urls.findOne({ convertedUrl });
-    if (doc) {
-      return doc.originalUrl;
-    }
-    return null;
-  } catch (err) {
-    console.error(err);
-  }
-};

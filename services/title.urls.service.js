@@ -9,13 +9,15 @@ const removeSpecificType= (str)=> {
     return str;
 }
 
-const getTitleConvertedUrl = async (originalUrl) =>{
+const getTitleConvertedUrlOrNULL = async (originalUrl) =>{
     console.log("getTitleConvertedUrl");
     
-    const title = await metadata.getTitle(originalUrl);
+    const title = await metadata.getTitleOrNULL(originalUrl);
+    if (title === null)
+      return null;
 
     console.log(title);
-    //error check
+    // error check
     // title이 겹치는데 다른 url인 경우.
     // custom부분 과 겹치는 title인 경우.?
 
@@ -27,4 +29,4 @@ const getTitleConvertedUrl = async (originalUrl) =>{
     return convertedUrl;
 };
 
-exports.getTitleConvertedUrl = getTitleConvertedUrl;
+exports.getTitleConvertedUrlOrNULL = getTitleConvertedUrlOrNULL;

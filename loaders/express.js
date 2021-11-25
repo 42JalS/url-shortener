@@ -10,6 +10,8 @@ module.exports = async app => {
     res.status(200).end();
   });
 
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: false }));
   app.use(express.static('public'));
   app.use(morgan('combined'));
 

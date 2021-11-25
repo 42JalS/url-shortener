@@ -2,9 +2,12 @@ const express = require('express');
 const path = require('path');
 const urlsRouter = require('./urls.route');
 const emojiUrlsRouter = require('./urls.emoji.route');
+const titleUrlRouter = require('./title.urls.route');
+const customRouter = require('./urls.custom.route');
 
 const router = express.Router();
 const urlsController = require('../controllers/urls.controller');
+const originalController = require('../controllers/urls.original.controller')
 
 /**
  * GET /status : API Status
@@ -21,6 +24,10 @@ router.get('/api/status', (req, res) => {
 
 router.use('/url', urlsRouter);
 router.use('/emoji-url', emojiUrlsRouter);
+router.use('/title-url', titleUrlRouter);
+router.use('/custom-url', customRouter);
+
+router.get('/original-url/:convertedUrl', originalController.changeConvertedUrlToOriginalUrl);
 
 // TEST
 router.use('/test', (req, res) => {

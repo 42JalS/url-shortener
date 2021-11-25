@@ -20,12 +20,16 @@ const saveNewUrl = async (originalUrl, convertedUrl) => {
   return newDoc;
 };
 
-exports.getConvertedUrl = async (originalUrl, customWord = null) => {
+exports.getConvertedUrlOrNULL = async (originalUrl, customWord = null) => {
   console.log(`👀 Convert! ${originalUrl} -> ${customWord == null ? '"seq count"' : customWord}`);
   try {
     const convertedUrl = customWord || await getNextUrlCount();
-    const doc = await Urls.findOne({ convertedUrl });
-    if (doc) {
+    const docSame = await Urls.findOne({ originalUrl, convertedUrl });
+    if (docSame) {
+      return docSame.convertedUrl;
+    }
+    const docSameConvertedUrl = await Urls.findOne({ convertedUrl });
+    if (docSameConvertedUrl) {
       return null;
     }
     const newDoc = await saveNewUrl(originalUrl, convertedUrl);
@@ -35,7 +39,7 @@ exports.getConvertedUrl = async (originalUrl, customWord = null) => {
   }
 };
 
-exports.getOriginalUrl = async convertedUrl => {
+exports.getOriginalUrlOrNULL = async convertedUrl => {
   try {
     const doc = await Urls.findOne({ convertedUrl });
     if (doc) {

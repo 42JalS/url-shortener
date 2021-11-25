@@ -4,9 +4,9 @@ const service = require('../services/urls.service');
 exports.changeOriginalUrlToCustomUrl = async (req, res, next) => {
   console.log('changeOriginalUrlToCustomUrl');
   try {
-    await service.getConvertedUrl(req.body.customUrl, req.body.customWord);
+    const convertedCustomURL = await service.getConvertedUrl(req.body.customUrl, req.body.customWord);
     res.status(httpStatus.OK).send({
-      key: req.body.customWord,      
+      key: convertedCustomURL,
     });
   } catch (err) {
     console.error(err);

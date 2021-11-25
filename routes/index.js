@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const urlsRouter = require('./urls.route');
 const titleUrlRouter = require('./title.urls.route');
+const customRouter = require('./urls.custom.route');
 
 const router = express.Router();
 const urlsController = require('../controllers/urls.controller');
@@ -21,6 +22,7 @@ router.get('/api/status', (req, res) => {
 
 router.use('/url', urlsRouter);
 router.use('/title-url', titleUrlRouter);
+router.use('/custom-url', customRouter);
 
 // TEST
 router.use('/test', (req, res) => {

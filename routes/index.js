@@ -4,7 +4,7 @@ const urlsRouter = require('./urls.route');
 
 const router = express.Router();
 const urlsController = require('../controllers/urls.controller');
-const OriginalController = require('../controllers/urls.original.controller')
+const originalController = require('../controllers/urls.original.controller')
 
 /**
  * GET /status : API Status

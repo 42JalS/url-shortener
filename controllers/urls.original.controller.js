@@ -6,7 +6,7 @@ exports.changeConvertedUrlToOriginalUrl = async (req, res, next) => {
     try {
       const fullConvertedUrl = req.params.convertedUrl;
       const convertedUrl = fullConvertedUrl.substring(fullConvertedUrl.lastIndexOf('/') + 1);
-      const originalUrl = await service.getOriginalUrl(convertedUrl);
+      const originalUrl = await service.getOriginalUrlOrNULL(convertedUrl);
       res.status(httpStatus.OK).send({
         key: originalUrl,
       });

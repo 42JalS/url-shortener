@@ -2,6 +2,14 @@ const Urls = require('../models/urls');
 const Sequences = require('../models/sequences');
 const bijective = require('../utils/bijective');
 
+const isSpecificType= (str)=> {
+  const reg = /[#%\?]/gim;
+  if(reg.test(str)){
+    return true;    
+  } 
+  return false;
+}
+
 const getNextUrlCount = async () => {
   const sequence = await Sequences.findOne({ _id: 'url_count' });
   if (sequence) {
@@ -24,6 +32,9 @@ exports.getConvertedUrlOrNULL = async (originalUrl, customWord = null) => {
   console.log(`👀 Convert! ${originalUrl} -> ${customWord == null ? '"seq count"' : customWord}`);
   try {
     const convertedUrl = customWord || await getNextUrlCount();
+    if (isSpecificType(convertedUrl)){
+      return "Don't use some special characters, such as #%\?";
+    }
     const docSame = await Urls.findOne({ originalUrl, convertedUrl });
     if (docSame) {
       return docSame.convertedUrl;

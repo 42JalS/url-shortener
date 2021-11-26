@@ -70,7 +70,7 @@ $submitCustomUrl.addEventListener('click', async e => {
     const data = await response.json();
     console.log(data.key);
     const $resultCustomUrl = document.querySelector('#resultCustomUrl');
-    $resultCustomUrl.textContent = `${APT_SERVER}/${data.key}`;
+    $resultCustomUrl.textContent = data.key ? `${APT_SERVER}/${data.key}` : `${data.message}`;
   } else {
     console.log(`error: ${response.status}`);
   }

@@ -38,12 +38,13 @@ exports.getConvertedUrlOrNULL = async (originalUrl, customWord = null) => {
       return null;
     }
     const newDoc = await saveNewUrl(originalUrl, convertedUrl);
-    if (newDoc == null) {
+    if (newDoc === null) {
       return null;
     }
     return newDoc.convertedUrl;
   } catch (err) {
     console.error(err);
+    return null;
   }
 };
 

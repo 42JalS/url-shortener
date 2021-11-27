@@ -1,15 +1,19 @@
 const httpStatus = require('http-status');
 const service = require('../services/urls.service');
+const { joinProtocol, isValidUrl } = require('../utils/validate');
 
 exports.changeOriginalUrlToConvertedUrl = async (req, res, next) => {
   try {
-    const { basicUrl } = req.body;
-    if (!basicUrl) {
+    let { originalUrl } = req.body;
+    originalUrl = joinProtocol(originalUrl);
+
+    if (!isValidUrl(originalUrl)) {
       return res.status(httpStatus.BAD_REQUEST).send({
-        message: 'No original url provided',
+        message: 'Original url is invalid',
       });
     }
-    const convertedUrl = await service.getConvertedUrlOrNULL(basicUrl);
+
+    const convertedUrl = await service.getConvertedUrlOrNULL(originalUrl);
     if (!convertedUrl) {
       return res.status(httpStatus.serverError).send({
         message: 'Failed to save database.',

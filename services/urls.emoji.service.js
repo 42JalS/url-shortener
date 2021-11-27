@@ -11,29 +11,30 @@ const makeConvertedEmojiUrl = async () => {
 };
 
 const saveNewUrl = async (originalUrl, convertedUrl) => {
-  const newDoc = new Urls({
-    originalUrl,
-    convertedUrl,
-  });
-  console.log('🥳 Save New URL: ', newDoc);
-  await newDoc.save();
-  return newDoc;
+  try {
+    const newDoc = new Urls({
+      originalUrl,
+      convertedUrl,
+    });
+    await newDoc.save();
+    console.log('🥳 Save New URL: ', newDoc);
+    return newDoc;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
 };
 
-exports.getConvertedEmojiUrlOrNULL = async (originalUrl, customWord = null) => {
-  console.log(`👀 Try Convert! ${originalUrl} -> ${customWord == null ? '"seq emoji"' : customWord}`);
+exports.getConvertedEmojiUrlOrNULL = async (originalUrl) => {
+  console.log(`👀 Try Convert! ${originalUrl} -> seq emoji`);
   try {
-    const convertedUrl = customWord || await makeConvertedEmojiUrl();
-    const docSame = await Urls.findOne({ originalUrl, convertedUrl });
-    if (docSame) {
-      return docSame.convertedUrl;
-    }
-    const docSameConvertedUrl = await Urls.findOne({ convertedUrl });
-    if (docSameConvertedUrl) {
-      return null;
+    const convertedUrl = await makeConvertedEmojiUrl();
+    const sameDoc = await Urls.findOne({ originalUrl });
+    if (sameDoc) {
+      return sameDoc.convertedUrl;
     }
     const newDoc = await saveNewUrl(originalUrl, convertedUrl);
-    if (newDoc === null) {
+    if (!newDoc) {
       return null;
     }
     return newDoc.convertedUrl;

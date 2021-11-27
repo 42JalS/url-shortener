@@ -10,6 +10,11 @@ exports.changeOriginalUrlToConvertedUrl = async (req, res, next) => {
       });
     }
     const convertedUrl = await service.getConvertedUrlOrNULL(basicUrl);
+    if (!convertedUrl) {
+      return res.status(httpStatus.serverError).send({
+        message: 'Failed to save database.',
+      });
+    }
     return res.status(httpStatus.OK).send({
       key: convertedUrl,
     });

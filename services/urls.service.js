@@ -11,19 +11,24 @@ const getNextUrlCount = async () => {
 };
 
 const saveNewUrl = async (originalUrl, convertedUrl) => {
-  const newDoc = new Urls({
-    originalUrl,
-    convertedUrl,
-  });
-  console.log('🥳 Save New URL: ', newDoc);
-  await newDoc.save();
-  return newDoc;
+  try {
+    const newDoc = new Urls({
+      originalUrl,
+      convertedUrl,
+    });
+    await newDoc.save();
+    console.log('🥳 Save New URL: ', newDoc);
+    return newDoc;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
 };
 
 exports.getConvertedUrlOrNULL = async (originalUrl, customWord = null) => {
-  console.log(`👀 Convert! ${originalUrl} -> ${customWord == null ? '"seq count"' : customWord}`);
+  console.log(`👀 Try convert! ${originalUrl} -> ${customWord == null ? '"seq count"' : customWord}`);
   try {
-    const convertedUrl = customWord || await getNextUrlCount();
+    const convertedUrl = customWord || (await getNextUrlCount());
     const docSame = await Urls.findOne({ originalUrl, convertedUrl });
     if (docSame) {
       return docSame.convertedUrl;
@@ -33,6 +38,9 @@ exports.getConvertedUrlOrNULL = async (originalUrl, customWord = null) => {
       return null;
     }
     const newDoc = await saveNewUrl(originalUrl, convertedUrl);
+    if (newDoc == null) {
+      return null;
+    }
     return newDoc.convertedUrl;
   } catch (err) {
     console.error(err);

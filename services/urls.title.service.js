@@ -9,7 +9,7 @@ const removeSpecificType = str => {
   return str;
 };
 
-const getTitleConvertedUrlOrNULL = async originalUrl => {
+const getConvertedTitleUrlOrNULL = async originalUrl => {
   console.log(`👀 Try convert! ${originalUrl} -> "title tag info"`);
   try {
     const title = await metadata.getTitleOrNULL(originalUrl);
@@ -30,4 +30,4 @@ const getTitleConvertedUrlOrNULL = async originalUrl => {
   }
 };
 
-exports.getTitleConvertedUrlOrNULL = getTitleConvertedUrlOrNULL;
+exports.getConvertedTitleUrlOrNULL = getConvertedTitleUrlOrNULL;

@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const urlsRouter = require('./urls.route');
 const emojiUrlsRouter = require('./urls.emoji.route');
-const titleUrlRouter = require('./title.urls.route');
+const titleUrlRouter = require('./urls.title.route');
 const customRouter = require('./urls.custom.route');
 const testRouter = require('./test.route');
 
@@ -27,6 +27,8 @@ router.use('/url', urlsRouter);
 router.use('/emoji-url', emojiUrlsRouter);
 router.use('/title-url', titleUrlRouter);
 router.use('/custom-url', customRouter);
+
+router.get('/original-url/:convertedUrl', originalController.changeConvertedUrlToOriginalUrl);
 
 router.use('/test', testRouter);
 

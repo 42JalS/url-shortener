@@ -4,10 +4,9 @@ const titleService = require('../services/title.urls.service');
 const urlsService = require('../services/urls.service');
 const emojiService = require('../services/urls.emoji.service');
 const Urls = require('../models/urls');
+const sequences = require('../models/sequences');
 
 mongoose.connect('mongodb://localhost/url-shortener');
-
-
 
 describe('하나의 https url에대해서', () => {
     afterEach(async () => {

@@ -121,39 +121,39 @@ describe('하나의 https url에대해서', () => {
 
 
 
-describe('없는 site 형식에 대해서 정상작동하는가?', () => {
-  afterEach(async() => {
-    await Urls.remove({});
-  });  
+// describe('없는 site 형식에 대해서 정상작동하는가?', () => {
+//   afterEach(async() => {
+//     await Urls.remove({});
+//   });  
   
-  const url = "swtpumpkin/node-githubActions-CI";
-      test('simple test', async () => {
-        const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url);
-        const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-        expect(orl).toBe(url);
-    });
+//   const url = "swtpumpkin/node-githubActions-CI";
+//       test('simple test', async () => {
+//         const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url);
+//         const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+//         expect(orl).toBe(url);
+//     });
 
-    test('emoji test', async () => {
-        const convertedUrl  = await emojiService.getConvertedEmojiUrlOrNULL(url);
-        const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-        expect(orl).toBe(url);
-    });
+//     test('emoji test', async () => {
+//         const convertedUrl  = await emojiService.getConvertedEmojiUrlOrNULL(url);
+//         const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+//         expect(orl).toBe(url);
+//     });
 
-    test('Custom test', async () => {
-      const custom = "custom";
-      const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url, custom);
-      const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-      expect(orl).toBe(url);
-    });
+//     test('Custom test', async () => {
+//       const custom = "custom";
+//       const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url, custom);
+//       const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+//       expect(orl).toBe(url);
+//     });
 
-    test('title url', async () => {
-      const custom = "custom";
-      const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url, custom);
-      const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-      expect(orl).toBe(url);
-    });
-  }
-);
+//     test('title url', async () => {
+//       const custom = "custom";
+//       const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url, custom);
+//       const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+//       expect(orl).toBe(url);
+//     });
+//   }
+// );
 
 /////////////////////////////////////////////////////////
 

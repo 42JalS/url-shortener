@@ -1,16 +1,17 @@
 /* eslint-disable no-undef */
 const mongoose = require('mongoose');
-const titleService = require('../services/title.urls.service');
-const urlsService = require('../services/urls.service');
-const emojiService = require('../services/urls.emoji.service');
 
-let Urls;
+let Urls; 
+let titleService; 
+let emojiService; 
 let sequences;
 
 beforeAll(async () => {
   await  mongoose.connect('mongodb://localhost:27017/url-shortener');
-  Urls = await require('../models/urls');
-  sequences = await require('../models/sequences');
+  urlsService = await require('../services/urls.service');
+  Urls = require('../models/urls');
+  titleService = await require('../services/title.urls.service');
+  emojiService = await require('../services/urls.emoji.service');
 })
 
 

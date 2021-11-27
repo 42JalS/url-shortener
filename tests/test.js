@@ -3,10 +3,17 @@ const mongoose = require('mongoose');
 const titleService = require('../services/title.urls.service');
 const urlsService = require('../services/urls.service');
 const emojiService = require('../services/urls.emoji.service');
-const Urls = require('../models/urls');
-const sequences = require('../models/sequences');
 
-mongoose.connect('mongodb://localhost/url-shortener');
+let Urls;
+let sequences;
+
+
+beforeAll(async () => {
+  await  mongoose.connect('mongodb://localhost/url-shortener');
+  Urls = await require('../models/urls');
+  sequences = await require('../models/sequences');
+})
+
 
 describe('하나의 https url에대해서', () => {
     afterEach(async () => {

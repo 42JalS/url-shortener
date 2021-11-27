@@ -28,8 +28,6 @@ router.use('/emoji-url', emojiUrlsRouter);
 router.use('/title-url', titleUrlRouter);
 router.use('/custom-url', customRouter);
 
-router.get('/original-url/:convertedUrl', originalController.changeConvertedUrlToOriginalUrl);
-
 router.use('/test', testRouter);
 
 router.use('/ogtest', (req, res) => {

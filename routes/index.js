@@ -4,6 +4,7 @@ const urlsRouter = require('./urls.route');
 const emojiUrlsRouter = require('./urls.emoji.route');
 const titleUrlRouter = require('./title.urls.route');
 const customRouter = require('./urls.custom.route');
+const testRouter = require('./test.route');
 
 const router = express.Router();
 const urlsController = require('../controllers/urls.controller');
@@ -27,12 +28,8 @@ router.use('/emoji-url', emojiUrlsRouter);
 router.use('/title-url', titleUrlRouter);
 router.use('/custom-url', customRouter);
 
-router.get('/original-url/:convertedUrl', originalController.changeConvertedUrlToOriginalUrl);
+router.use('/test', testRouter);
 
-// TEST
-router.use('/test', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/test.html'));
-});
 router.use('/ogtest', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/ogtest.html'));
 });

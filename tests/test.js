@@ -11,7 +11,7 @@ jest.setTimeout(60000);
 
 beforeAll(async () => {
   jest.setTimeout(60000)
-  await  mongoose.connect('mongodb://localhost/url-shortener');
+  await  mongoose.connect('mongodb://localhost:27017/url-shortener');
   Urls = await require('../models/urls');
   sequences = await require('../models/sequences');
 })

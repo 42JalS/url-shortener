@@ -12,9 +12,7 @@ exports.getTitleOrNULL = async (originalUrl) => {
         } else {
             console.log('Error', error.message);
         }
-        console.log(error.config);
-    }
-    );
+    });
     if (res === undefined)
         return null;
     console.log(res);

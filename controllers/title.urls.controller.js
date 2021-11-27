@@ -4,7 +4,7 @@ const service = require('../services/title.urls.service');
 exports.changeOriginalUrlToTitleConvertedUrl = async (req, res, next) => {
   console.log('changeOriginalUrlToTitleConvertedUrl');
   try {
-    const { originalUrl } = req.params;
+    const { originalUrl } = req.body;
     console.log(originalUrl);
 
     const convertedUrl = await service.getTitleConvertedUrlOrNULL(originalUrl);

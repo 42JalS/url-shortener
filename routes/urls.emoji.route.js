@@ -3,6 +3,6 @@ const urlsEmojiController = require('../controllers/urls.emoji.controller');
 
 const router = express.Router();
 
-router.get('/:originalUrl', urlsEmojiController.changeOrignalUrlToConvertedEmojiUrl);
+router.post('/', urlsEmojiController.changeOrignalUrlToConvertedEmojiUrl);
 
 module.exports = router;

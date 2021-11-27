@@ -2,9 +2,14 @@ const httpStatus = require('http-status');
 const service = require('../services/urls.service');
 
 exports.changeConvertedUrlToOriginalUrl = async (req, res, next) => {
-    console.log('changeConvertedUrlToOriginalUrl');
     try {
       const fullConvertedUrl = req.params.convertedUrl;
+      if (!fullConvertedUrl) {
+        return res.status(httpStatus.BAD_REQUEST).send({
+          message: 'No converted url provided',
+        });
+      }
+
       const convertedUrl = fullConvertedUrl.substring(fullConvertedUrl.lastIndexOf('/') + 1);
       const originalUrl = await service.getOriginalUrlOrNULL(convertedUrl);
       if (!originalUrl) {

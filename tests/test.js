@@ -7,10 +7,7 @@ const emojiService = require('../services/urls.emoji.service');
 let Urls;
 let sequences;
 
-jest.setTimeout(60000);
-
 beforeAll(async () => {
-  jest.setTimeout(60000)
   await  mongoose.connect('mongodb://localhost:27017/url-shortener');
   Urls = await require('../models/urls');
   sequences = await require('../models/sequences');
@@ -28,95 +25,95 @@ describe('하나의 https url에대해서', () => {
         expect(orl).toBe(url);
     });
 
-    test('emoji test', async () => {
-      const convertedUrl  = await emojiService.getConvertedEmojiUrlOrNULL(url);
-      const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-      expect(orl).toBe(url);
-    });
+    // test('emoji test', async () => {
+    //   const convertedUrl  = await emojiService.getConvertedEmojiUrlOrNULL(url);
+    //   const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+    //   expect(orl).toBe(url);
+    // });
 
-    test('custom test', async () => {
-      const custom = "custom";
-      const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url, custom);
-      const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-      expect(orl).toBe(url);
-    });
+    // test('custom test', async () => {
+    //   const custom = "custom";
+    //   const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url, custom);
+    //   const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+    //   expect(orl).toBe(url);
+    // });
     
-    test('title test', async () => {
-      const convertedUrl  = await titleService.getTitleConvertedUrlOrNULL(url);
-      const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-      expect(orl).toBe(url);
-    });
+    // test('title test', async () => {
+    //   const convertedUrl  = await titleService.getTitleConvertedUrlOrNULL(url);
+    //   const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+    //   expect(orl).toBe(url);
+    // });
   }
 );
 
 ////////////////////////////////////////////////////////////////////////////////
 
 
-describe('하나의 http url에대해서 case1', () => {
-  afterEach(async () => {
-    await Urls.remove({});
-  });
+// describe('하나의 http url에대해서 case1', () => {
+//   afterEach(async () => {
+//     await Urls.remove({});
+//   });
   
-    const url = "http://www.naver.com/";
-    test('simple test', async () => {
-        const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url);
-        const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-        expect(orl).toBe(url);
-    });
+//     const url = "http://www.naver.com/";
+//     test('simple test', async () => {
+//         const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url);
+//         const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+//         expect(orl).toBe(url);
+//     });
 
-    test('emoji test', async () => {
-      const convertedUrl  = await emojiService.getConvertedEmojiUrlOrNULL(url);
-      const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-      expect(orl).toBe(url);
-    });
+//     test('emoji test', async () => {
+//       const convertedUrl  = await emojiService.getConvertedEmojiUrlOrNULL(url);
+//       const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+//       expect(orl).toBe(url);
+//     });
 
-    test('custom test', async () => {
-          const custom = "ccustom";
-          const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url, custom);
-          const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-          expect(orl).toBe(url);
-    });
+//     test('custom test', async () => {
+//           const custom = "ccustom";
+//           const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url, custom);
+//           const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+//           expect(orl).toBe(url);
+//     });
 
-    test('title test', async () => {
-          const convertedUrl  = await titleService.getTitleConvertedUrlOrNULL(url);
-          const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-          expect(orl).toBe(url);
-    });
-  }
-);
+//     test('title test', async () => {
+//           const convertedUrl  = await titleService.getTitleConvertedUrlOrNULL(url);
+//           const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+//           expect(orl).toBe(url);
+//     });
+//   }
+// );
 
-// ////////////////////////////////////////////////////////////////////////
+// // ////////////////////////////////////////////////////////////////////////
 
 
-describe('하나의 http url에대해서 case2', () => {
-  afterEach( async () => {
-    await Urls.remove({});
-  });
+// describe('하나의 http url에대해서 case2', () => {
+//   afterEach( async () => {
+//     await Urls.remove({});
+//   });
   
-    const url = "http://www.nspna.com/news/?mode=view&newsid=539519";
-    test('simple test', async () => {
-      const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url);
-      const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-      expect(orl).toBe(url);
-    });
-    test('emoji test', async () => {
-          const convertedUrl  = await emojiService.getConvertedEmojiUrlOrNULL(url);
-          const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-          expect(orl).toBe(url);
-      });
-    test('custom test', async () => {
-          const custom = "cccustom";
-          const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url, custom);
-          const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-          expect(orl).toBe(url);
-        });
-    test('title test', async () => {
-          const convertedUrl  = await titleService.getTitleConvertedUrlOrNULL(url);
-          const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-          expect(orl).toBe(url);
-    });
-  }
-);
+//     const url = "http://www.nspna.com/news/?mode=view&newsid=539519";
+//     test('simple test', async () => {
+//       const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url);
+//       const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+//       expect(orl).toBe(url);
+//     });
+//     test('emoji test', async () => {
+//           const convertedUrl  = await emojiService.getConvertedEmojiUrlOrNULL(url);
+//           const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+//           expect(orl).toBe(url);
+//       });
+//     test('custom test', async () => {
+//           const custom = "cccustom";
+//           const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url, custom);
+//           const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+//           expect(orl).toBe(url);
+//         });
+//     test('title test', async () => {
+//           const convertedUrl  = await titleService.getTitleConvertedUrlOrNULL(url);
+//           const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+//           expect(orl).toBe(url);
+//     });
+//   }
+// );
 
 
 ////////////////////////////////////////////////////////////////////////////////

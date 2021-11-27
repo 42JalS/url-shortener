@@ -1,4 +1,4 @@
-exports.isValidCustomUrl = customUrl => {
+exports.isValidCustomWord = customUrl => {
 	const regex = /^[a-z0-9\.\-_~!\$&'\(\)\*\+,;=:@\u00a1-\uffff]{1,}$/i;
 	return regex.test(customUrl);
 }

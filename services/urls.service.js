@@ -2,7 +2,7 @@ const Urls = require('../models/urls');
 const Sequences = require('../models/sequences');
 const bijective = require('../utils/bijective');
 
-const getNextUrlCount = async () => {
+const makeConvertedUrl = async () => {
   const sequence = await Sequences.findOne({ _id: 'url_count' });
   if (sequence) {
     return bijective.encode(sequence.seq);
@@ -23,13 +23,13 @@ const saveNewUrl = async (originalUrl, convertedUrl) => {
 exports.getConvertedUrlOrNULL = async (originalUrl, customWord = null) => {
   console.log(`👀 Convert! ${originalUrl} -> ${customWord == null ? '"seq count"' : customWord}`);
   try {
-    const convertedUrl = customWord || await getNextUrlCount();
-    const docSame = await Urls.findOne({ originalUrl, convertedUrl });
-    if (docSame) {
-      return docSame.convertedUrl;
+    const convertedUrl = customWord || await makeConvertedUrl();
+    const sameDoc = await Urls.findOne({ originalUrl, convertedUrl });
+    if (sameDoc) {
+      return sameDoc.convertedUrl;
     }
-    const docSameConvertedUrl = await Urls.findOne({ convertedUrl });
-    if (docSameConvertedUrl) {
+    const sameDocConvertedUrl = await Urls.findOne({ convertedUrl });
+    if (sameDocConvertedUrl) {
       return null;
     }
     const newDoc = await saveNewUrl(originalUrl, convertedUrl);

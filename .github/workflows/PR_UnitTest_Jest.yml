@@ -9,6 +9,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
+      - name: MongoDB in GitHub Actions
+        uses: supercharge/mongodb-github-action@1.7.0
+
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
@@ -16,7 +19,7 @@ jobs:
 
       - name: npm_install
         run: npm install
-        
+             
       - name: run_test_code
         run: npm test
         

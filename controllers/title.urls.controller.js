@@ -1,11 +1,18 @@
 const httpStatus = require('http-status');
 const service = require('../services/title.urls.service');
+const { joinProtocol, isValidUrl } = require('../utils/validate');
 
 exports.changeOriginalUrlToTitleConvertedUrl = async (req, res, next) => {
   console.log('changeOriginalUrlToTitleConvertedUrl');
   try {
-    const { originalUrl } = req.body;
-    console.log(originalUrl);
+    let { originalUrl } = req.body;
+    originalUrl = joinProtocol(originalUrl);
+
+    if (!isValidUrl(originalUrl)) {
+      return res.status(httpStatus.BAD_REQUEST).send({
+        message: 'Original url is invalid',
+      });
+    }
 
     const convertedUrl = await service.getTitleConvertedUrlOrNULL(originalUrl);
     console.log(convertedUrl);

@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 const mongoose = require('mongoose');
-const titleService = require('../services/title.urls.service');
+const titleService = require('../services/urls.title.service');
 const urlsService = require('../services/urls.service');
 const emojiService = require('../services/urls.emoji.service');
 const Urls = require('../models/urls');
@@ -34,7 +34,7 @@ describe('하나의 https url에대해서', () => {
     });
     
     test('title test', async () => {
-      const convertedUrl  = await titleService.getTitleConvertedUrlOrNULL(url);
+      const convertedUrl  = await titleService.getConvertedTitleUrlOrNULL(url);
       const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
       expect(orl).toBe(url);
     });
@@ -70,7 +70,7 @@ describe('하나의 http url에대해서 case1', () => {
     });
 
     test('title test', async () => {
-          const convertedUrl  = await titleService.getTitleConvertedUrlOrNULL(url);
+          const convertedUrl  = await titleService.getConvertedTitleUrlOrNULL(url);
           const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
           expect(orl).toBe(url);
     });
@@ -103,7 +103,7 @@ describe('하나의 http url에대해서 case2', () => {
           expect(orl).toBe(url);
         });
     test('title test', async () => {
-          const convertedUrl  = await titleService.getTitleConvertedUrlOrNULL(url);
+          const convertedUrl  = await titleService.getConvertedTitleUrlOrNULL(url);
           const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
           expect(orl).toBe(url);
     });
@@ -151,62 +151,65 @@ describe('없는 site 형식에 대해서 정상작동하는가?', () => {
 
 /////////////////////////////////////////////////////////
 
-// describe('위의 url형식이 아닌 일반적인 문자열에대해서 작동', () => {
-//   afterEach(() => {
-//     await Urls.remove({});
-//   });  
+describe('위의 url형식이 아닌 일반적인 문자열에대해서 작동', () => {
+  afterEach( async() => {
+    await Urls.remove({});
+  });  
   
-//   const url = "alkdsnflsakdnflsa";
-//     test('simple test', async () => {
-//       const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url);
-//       const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-//       expect(orl).toBe(null);
-//   });
+  const url = "alkdsnflsakdnflsa";
+  //   test('simple test', async () => {
+  //     const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url);
+  //     const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+  //     expect(orl).toBe(null);
+  // });
 
-//   test('emoji test', async () => {
-//         const convertedUrl  = await emojiService.getConvertedEmojiUrlOrNULL(url);
-//         const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-//         expect(orl).toBe(null);
-//     });
+  // test('emoji test', async () => {
+  //       const convertedUrl  = await emojiService.getConvertedEmojiUrlOrNULL(url);
+  //       const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+  //       expect(orl).toBe(null);
+  //   });
 
-//   test('custom test', async () => {
-//         const custom = "custom";
-//         const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url, custom);
-//         const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-//         expect(orl).toBe(null);
-//     });
+  // test('custom test', async () => {
+  //       const custom = "custom";
+  //       const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url, custom);
+  //       const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+  //       expect(orl).toBe(null);
+  //   });
 
-//   test('title test', async () => {
-//     const convertedUrl  = await titleService.getTitleConvertedUrlOrNULL(url);
-//     const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-//     expect(orl).toBe(null);
-//   });
-//   }
-// );
+  test('title test', async () => {
+    const convertedUrl  = await titleService.getConvertedTitleUrlOrNULL(url);
+    const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+    expect(orl).toBe(null);
+  });
+  }
+);
 
 // // // /////////////////////////////////////////////////////////
 
 // describe('연속적인 url 테스트 converted 된 값을 다시 converted simple test', () => {
-//   afterEach(() => {
+//   afterEach( async() => {
 //     await Urls.remove({});
 //   });  
   
-//   const urll = "https://docs.github.com/en/actions";
-//     const url = urlsService.getConvertedUrlOrNULL( urll);
+//     const urll = "https://docs.github.com/en/actions";
+
 
 //     test('simple test', async () => {
+//       const url = urlsService.getConvertedUrlOrNULL(urll);
 //       const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url);
 //       const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
 //       expect(orl).toBe(url);
 //     });
 
 //     test('emoji test', async () => {
+//       const url = urlsService.getConvertedUrlOrNULL(urll);
 //           const convertedUrl  = await emojiService.getConvertedEmojiUrlOrNULL(url);
 //           const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
 //           expect(orl).toBe(url);
 //     });
 
 //     test('custom test', async () => {
+//       const url = urlsService.getConvertedUrlOrNULL(urll);
 //           const custom = "custom";
 //           const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url, custom);
 //           const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
@@ -214,7 +217,8 @@ describe('없는 site 형식에 대해서 정상작동하는가?', () => {
 //     });
 
 //     test('title test', async () => {
-//       const convertedUrl  = await titleService.getTitleConvertedUrlOrNULL(url);
+//       const url = urlsService.getConvertedUrlOrNULL(urll);
+//       const convertedUrl  = await titleService.getConvertedTitleUrlOrNULL(url);
 //       const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
 //       expect(orl).toBe(url);
 //     });
@@ -226,7 +230,7 @@ describe('없는 site 형식에 대해서 정상작동하는가?', () => {
 // /////////////////////////////////////////////////////////////////////////////////
 
 // describe('연속적인 url 테스트 converted 된 값을 다시 converted emoji test', () => {
-//   afterEach(() => {
+//   afterEach( async() => {
 //     await Urls.remove({});
 //   });
   
@@ -253,7 +257,7 @@ describe('없는 site 형식에 대해서 정상작동하는가?', () => {
 //   });
 
 //   test('title test', async () => {
-//     const convertedUrl  = await titleService.getTitleConvertedUrlOrNULL(url);
+//     const convertedUrl  = await titleService.getConvertedTitleUrlOrNULL(url);
 //     const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
 //     expect(orl).toBe(url);
 //   });
@@ -265,7 +269,7 @@ describe('없는 site 형식에 대해서 정상작동하는가?', () => {
 // /////////////////////////////////////////////////////////////////////////////////
 
 // describe('연속적인 url 테스트 converted 된 값을 다시 converted custom test', () => {
-//   afterEach(() => {
+//   afterEach( async() => {
 //     await Urls.remove({});
 //   });
   
@@ -293,7 +297,7 @@ describe('없는 site 형식에 대해서 정상작동하는가?', () => {
 //   });
 
 //   test('title test', async () => {
-//     const convertedUrl  = await titleService.getTitleConvertedUrlOrNULL(url);
+//     const convertedUrl  = await titleService.getConvertedTitleUrlOrNULL(url);
 //     const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
 //     expect(orl).toBe(url);
 //   });
@@ -305,7 +309,7 @@ describe('없는 site 형식에 대해서 정상작동하는가?', () => {
 
 
 // describe('연속적인 url 테스트 converted 된 값을 다시 converted title test', () => {
-//   afterEach(() => {
+//   afterEach( async() => {
 //     await Urls.remove({});
 //   });
   
@@ -333,7 +337,7 @@ describe('없는 site 형식에 대해서 정상작동하는가?', () => {
 //   });
 
 //   test('title test', async () => {
-//     const convertedUrl  = await titleService.getTitleConvertedUrlOrNULL(url);
+//     const convertedUrl  = await titleService.getConvertedTitleUrlOrNULL(url);
 //     const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
 //     expect(orl).toBe(url);
 //   });
@@ -342,35 +346,35 @@ describe('없는 site 형식에 대해서 정상작동하는가?', () => {
 // /////////////////////////////////////////////////////////////////////////////////
 
 
-// describe('매우긴 url에서의 작동', () => {
-//   afterEach(() => {
-//     await Urls.remove({});
-//   });
+describe('매우긴 url에서의 작동', () => {
+  afterEach( async() => {
+    await Urls.remove({});
+  });
   
-//   const url = "https://www.google.com/search?q=%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84&sxsrf=AOaemvJjS3mxF0LMC15ItKD64ei8OcuHeQ%3A1637904355174&ei=42-gYaSMCo78wQOSqYnoAQ&ved=0ahUKEwjkiZCapbX0AhUOfnAKHZJUAh0Q4dUDCA4&uact=5&oq=%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84&gs_lcp=Cgdnd3Mtd2l6EAMyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEOgQIABADOggILhCABBCxAzoICAAQgAQQsQM6CwgAEIAEELEDEIMBOgUILhCABEoECEEYAVCDCVj9JGD0JWgGcAB4A4ABrwGIAfEJkgEDMS44mAEAoAEBoAECwAEB&sclient=gws-wiz";
-//   test('simple test', async () => {
-//     const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url);
-//     const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-//     expect(orl).toBe(url);
-//   });
-//   test('emoji test', async () => {
-//       const convertedUrl  = await emojiService.getConvertedEmojiUrlOrNULL(url);
-//       const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-//       expect(orl).toBe(url);
-//   });
-//   test('custom test', async () => {
-//       const custom = "custom";
-//       const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url, custom);
-//       const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-//       expect(orl).toBe(url);
-//     });
-//     test('title test', async () => {
-//       const convertedUrl  = await titleService.getTitleConvertedUrlOrNULL(url);
-//       const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
-//       expect(orl).toBe(url);
-//   });
-//   }
-// );
+  const url = "https://www.google.com/search?q=%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84&sxsrf=AOaemvJjS3mxF0LMC15ItKD64ei8OcuHeQ%3A1637904355174&ei=42-gYaSMCo78wQOSqYnoAQ&ved=0ahUKEwjkiZCapbX0AhUOfnAKHZJUAh0Q4dUDCA4&uact=5&oq=%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84%EC%9C%BC%EC%95%84%EC%95%84%EC%95%84&gs_lcp=Cgdnd3Mtd2l6EAMyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEOgQIABADOggILhCABBCxAzoICAAQgAQQsQM6CwgAEIAEELEDEIMBOgUILhCABEoECEEYAVCDCVj9JGD0JWgGcAB4A4ABrwGIAfEJkgEDMS44mAEAoAEBoAECwAEB&sclient=gws-wiz";
+  test('simple test', async () => {
+    const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url);
+    const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+    expect(orl).toBe(url);
+  });
+  test('emoji test', async () => {
+      const convertedUrl  = await emojiService.getConvertedEmojiUrlOrNULL(url);
+      const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+      expect(orl).toBe(url);
+  });
+  test('custom test', async () => {
+      const custom = "custom";
+      const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url, custom);
+      const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+      expect(orl).toBe(url);
+    });
+    test('title test', async () => {
+      const convertedUrl  = await titleService.getConvertedTitleUrlOrNULL(url);
+      const orl  = await urlsService.getOriginalUrlOrNULL(convertedUrl)
+      expect(orl).toBe(url);
+  });
+  }
+);
 
 
 
@@ -379,21 +383,21 @@ describe('없는 site 형식에 대해서 정상작동하는가?', () => {
 // // - converted url로  https://docs.github.com/en/actions 을 제출시 맨끝 '/' actions  만 추출해서 reject되어야하는것이 값이 나오는지를 테스트.
 
 
-// describe(' converted to original 저격 케이스', () => {
-//   afterEach(() => {
-//     await Urls.remove({});
-//   });
+describe(' converted to original 저격 케이스', () => {
+  afterEach( async() => {
+    await Urls.remove({});
+  });
   
-//   const url = "https://docs.github.com/en/actions";
-//   const custom = "actions"
+  const url = "https://docs.github.com/en/actions";
+  const custom = "actions"
 
-//   test('custom test', async () => {
-//       const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url, custom);
-//       const orl  = await urlsService.getOriginalUrlOrNULL(url)
-//       expect(orl).toBe(null);
-//     });
-//   }
-// );
+  test('custom test', async () => {
+      const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url, custom);
+      const orl  = await urlsService.getOriginalUrlOrNULL(url)
+      expect(orl).toBe(null);
+    });
+  }
+);
 
 
 
@@ -416,7 +420,7 @@ describe('없는 site 형식에 대해서 정상작동하는가?', () => {
 
 
 // describe('custom test', () => {
-//   afterEach(() => {
+//   afterEach( async() => {
 //     await Urls.remove({});
 //   });
   
@@ -436,7 +440,7 @@ describe('없는 site 형식에 대해서 정상작동하는가?', () => {
 //     });
     
 //     test('custom test with title', async () => {
-//       const convertedUrll  = await titleService.getTitleConvertedUrlOrNULL(url);
+//       const convertedUrll  = await titleService.getConvertedTitleUrlOrNULL(url);
 //       const custom = convertedUrll.substring(convertedUrll.lastIndexOf('/') + 1);
 //       const convertedUrl  = await urlsService.getConvertedUrlOrNULL(url, custom);
 //       expect(convertedUrl).toBe(null);
@@ -458,22 +462,23 @@ describe('없는 site 형식에 대해서 정상작동하는가?', () => {
 // // 3. 일반적인 접근이 안되는 url 테스트
 // // - test url : https://www.notion.so/42jals/JalS-Home-7fb4100ecff643e1899e9e41677f6df6
 // // - 3 ->  reject
+
 // describe('title test', () => {
-//   afterEach(() => {
+//   afterEach( async() => {
 //     await Urls.remove({});
 //   });
   
 //   test('title test with custom', async () => {
 //     const url1 = "http://www.naver.com/";
 //     const url2 = "https://www.naver.com/";
-//     titleService.getTitleConvertedUrlOrNULL(url1);
-//     const convertedUrl = titleService.getTitleConvertedUrlOrNULL(url2);
+//     titleService.getConvertedTitleUrlOrNULL(url1);
+//     const convertedUrl = titleService.getConvertedTitleUrlOrNULL(url2);
 //     expect(convertedUrl).toBe(null);
 //   });
   
 //   test('title test with custom', async () => {
 //   const url = "https://www.notion.so/42jals/JalS-Home-7fb4100ecff643e1899e9e41677f6df6";    
-//   const convertedUrl = titleService.getTitleConvertedUrlOrNULL(url);
+//   const convertedUrl = titleService.getConvertedTitleUrlOrNULL(url);
 //     expect(convertedUrl).toBe(null);
 //   });
 // });

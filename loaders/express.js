@@ -1,6 +1,7 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 const morgan = require('morgan');
 const logger = require('./winston');
 const env = require('../config');
@@ -19,6 +20,7 @@ module.exports = async app => {
     res.status(200).end();
   });
 
+  app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use(express.static(path.join(__dirname, 'public')));

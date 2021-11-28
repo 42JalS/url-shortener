@@ -5,8 +5,7 @@ const morgan = require('morgan');
 const logger = require('./winston');
 const env = require('../config');
 
-const combined =
-  ':remote-addr - :remote-user ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"';
+const combined = ':remote-addr - :remote-user ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"';
 const morganFormat = env.NODE_ENV !== 'production' ? 'dev' : combined;
 console.log(morganFormat);
 const routes = require('../routes');

@@ -15,17 +15,20 @@ exports.changeOriginalUrlToConvertedEmojiUrl = async (req, res, next) => {
       });
     }
 
-    const convertedEmojiUrl = await service.getConvertedEmojiUrlOrNULL(originalUrl);
-    if (!convertedEmojiUrl) {
+    const data = await service.getConvertedEmojiUrlOrNULL(originalUrl);
+    if (!data) {
       return res.status(httpStatus.serverError).send({
         message: 'Failed to save database.',
       });
     }
-    res.status(httpStatus.OK).send({
-      key: convertedEmojiUrl,
+    return res.status(httpStatus.OK).send({
+      message: 'ok',
+      status: httpStatus.OK,
+      data
     });
   } catch (err) {
     console.error(err);
     next(err);
+    return null;
   }
 };

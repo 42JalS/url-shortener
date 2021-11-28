@@ -1,6 +1,7 @@
 const Urls = require('../models/urls');
 const Sequences = require('../models/sequences');
 const bijective = require('../utils/bijective');
+const { normalizeData } = require('../utils/normalization');
 
 const makeConvertedUrl = async () => {
   const sequence = await Sequences.findOne({ _id: 'url_count' });
@@ -31,7 +32,7 @@ exports.getConvertedUrlOrNULL = async (originalUrl, customWord = null) => {
     const convertedUrl = customWord || await makeConvertedUrl();
     const sameDoc = await Urls.findOne({ originalUrl, convertedUrl });
     if (sameDoc) {
-      return sameDoc.convertedUrl;
+      return normalizeData(sameDoc);
     }
     const sameDocConvertedUrl = await Urls.findOne({ convertedUrl });
     if (sameDocConvertedUrl) {
@@ -41,7 +42,7 @@ exports.getConvertedUrlOrNULL = async (originalUrl, customWord = null) => {
     if (newDoc === null) {
       return null;
     }
-    return newDoc.convertedUrl;
+    return normalizeData(newDoc);
   } catch (err) {
     console.error(err);
     return null;
@@ -51,11 +52,12 @@ exports.getConvertedUrlOrNULL = async (originalUrl, customWord = null) => {
 exports.getOriginalUrlOrNULL = async convertedUrl => {
   try {
     const doc = await Urls.findOne({ convertedUrl });
-    if (doc) {
-      return doc.originalUrl;
+    if (!doc) {
+      return null;
     }
-    return null;
+    return normalizeData(doc);
   } catch (err) {
     console.error(err);
+    return null;
   }
 };

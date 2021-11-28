@@ -1,5 +1,63 @@
-# url-shortener
 
+# Getting started
+
+
+# 개요 Overview
+
+## 단축 URL API 개요
+
+Osus(Open Source URL Shortener)[:발음]는 RESTful API로 작동하는 'URL Shortener' 백엔드 시스템입니다.
+
+- Javascript
+- Self-host
+- Back-end
+
+# 설치 Installation
+
+## 설치 준비
+
+OSUS를 세팅하기 이전에 시스템에 다음과 같은 소프트웨어가 설치되어 있어야 합니다.
+
+- Node.js: 12.x 이상, 14.x 권장
+- MongoDB: 3.6 이상
+
+원하는 웹 서버 디렉토리에 레포지토리를 클론하세요.
+
+```bash
+$ git clone https://github.com/42JalS/url-shortener/
+```
+
+## 환경 변수 설정하기
+
+디렉토리의 루트에 `.env` 파일을 만들어서 아래 내용을 저장합니다.
+
+- `SERVER_PORT` : 서버 포트 넘버
+- `DATABASE_URI` : MongoDB의 URI
+- `NODE_ENV` : `dev` 혹은 `production`
+
+다음은 `.env` 파일의 예시입니다.
+
+`.env.example`
+
+```
+SERVER_PORT=3000
+DATABASE_URI='mongodb://localhost/my-collection'
+NODE_ENV=dev
+```
+
+## 실행하기
+
+위의 모든 단계를 마쳤다면 아래 명령어로 OSUS를 실행하세요.
+
+```bash
+$ npm run start
+```
+
+---
+
+
+
+# API document
 
 | API | HTTP 메서드 | 설명 |
 | --- | --- | --- |
@@ -401,3 +459,10 @@ curl https://YOUR_DOMAIN.COM/original-url/:convertedUrl \
 | 500 | Internal Server Error | 서버 내부에 오류가 발생했습니다. "개발자 포럼"에 오류를 신고해 주십시오. |
 
 ---
+
+
+
+# Contribute
+
+- [Issues](https://github.com/42JalS/url-shortener/issues)
+- [PR](https://github.com/42JalS/url-shortener/pulls)

@@ -41,8 +41,9 @@ $ git clone https://github.com/42JalS/url-shortener/
 `.env.example`
 
 ```
-SERVER_PORT=3000
-DATABASE_URI='mongodb://localhost/my-collection'
+ORIGIN=localhost:3000
+PORT=3000
+DATABASE_URI=mongodb://localhost/my-collection
 NODE_ENV=dev
 ```
 

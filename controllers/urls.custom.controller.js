@@ -21,17 +21,20 @@ exports.changeOriginalUrlToCustomUrl = async (req, res, next) => {
       });
     }
 
-    const convertedCustomURL = await service.getConvertedUrlOrNULL(originalUrl, customWord);
-    if (!convertedCustomURL) {
+    const data = await service.getConvertedUrlOrNULL(originalUrl, customWord);
+    if (!data) {
       return res.status(httpStatus.CONFLICT).send({
         message: 'Custom word already uesd',
       });
     }
-    res.status(httpStatus.OK).send({
-      key: convertedCustomURL,
+    return res.status(httpStatus.OK).send({
+      message: 'ok',
+      status: httpStatus.OK,
+      data
     });
   } catch (err) {
     console.error(err);
     next(err);
+    return null;
   }
 };

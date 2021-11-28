@@ -1,6 +1,7 @@
 const Urls = require('../models/urls');
 const Sequences = require('../models/sequences');
 const bijectiveEmoji = require('../utils/bijective-emoji');
+const { normalizeData } = require('../utils/normalization');
 
 const makeConvertedEmojiUrl = async () => {
   const sequence = await Sequences.findOne({ _id: 'url_count' });
@@ -29,15 +30,11 @@ exports.getConvertedEmojiUrlOrNULL = async (originalUrl) => {
   console.log(`👀 Try Convert! ${originalUrl} -> seq emoji`);
   try {
     const convertedUrl = await makeConvertedEmojiUrl();
-    const sameDoc = await Urls.findOne({ originalUrl });
-    if (sameDoc) {
-      return sameDoc.convertedUrl;
-    }
     const newDoc = await saveNewUrl(originalUrl, convertedUrl);
     if (!newDoc) {
       return null;
     }
-    return newDoc.convertedUrl;
+    return normalizeData(newDoc);
   } catch (err) {
     console.error(err);
     return null;

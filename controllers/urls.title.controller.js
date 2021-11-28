@@ -14,18 +14,20 @@ exports.changeOriginalUrlToTitleConvertedUrl = async (req, res, next) => {
       });
     }
 
-    const convertedUrl = await service.getConvertedTitleUrlOrNULL(originalUrl);
-    console.log(convertedUrl);
-    if(convertedUrl === null){
+    const data = await service.getConvertedTitleUrlOrNULL(originalUrl);
+    if(!data) {
         return res.status(httpStatus.BAD_REQUEST).send({
           message: 'Reject get title-url some reason',
       });
     }
     return res.status(httpStatus.OK).send({
-      key: convertedUrl,
+      message: 'ok',
+      status: httpStatus.OK,
+      data
     });
   } catch (err) {
     console.error(err);
     next(err);
+    return null;
   }
 };

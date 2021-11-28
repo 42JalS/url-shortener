@@ -13,14 +13,16 @@ exports.changeOriginalUrlToConvertedUrl = async (req, res, next) => {
       });
     }
 
-    const convertedUrl = await service.getConvertedUrlOrNULL(originalUrl);
-    if (!convertedUrl) {
+    const data = await service.getConvertedUrlOrNULL(originalUrl);
+    if (!data) {
       return res.status(httpStatus.serverError).send({
         message: 'Failed to save database.',
       });
     }
     return res.status(httpStatus.OK).send({
-      key: convertedUrl,
+      message: 'ok',
+      status: httpStatus.OK,
+      data
     });
   } catch (err) {
     console.error(err);
@@ -31,13 +33,14 @@ exports.changeOriginalUrlToConvertedUrl = async (req, res, next) => {
 exports.redirectConvertedUrlToOriginalUrl = async (req, res, next) => {
   try {
     const { convertedUrl } = req.params;
-    const originalUrl = await service.getOriginalUrlOrNULL(convertedUrl);
-    if (originalUrl) {
-      return res.redirect(originalUrl);
+    const data = await service.getOriginalUrlOrNULL(convertedUrl);
+    if (!data) {
+      return res.redirect('/');
     }
-    return res.redirect('/');
+    return res.redirect(data.originalUrl);
   } catch (err) {
     console.error(err);
     next(err);
+    return null;
   }
 };

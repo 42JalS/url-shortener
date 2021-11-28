@@ -31,7 +31,7 @@ $ git clone https://github.com/42JalS/url-shortener/
 
 디렉토리의 루트에 `.env` 파일을 만들어서 아래 내용을 저장합니다.
 
-- `ORIGIN` : origin. https://github.com/42JalS/url-shortener에서 'https://github.com'
+- `ORIGIN` : origin. `https://github.com/42JalS/url-shortener`에서 `https://github.com
 - `PORT` : 서버 포트 넘버
 - `DATABASE_URI` : MongoDB의 URI
 - `NODE_ENV` : `dev` 혹은 `production`

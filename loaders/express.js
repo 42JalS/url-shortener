@@ -19,7 +19,11 @@ module.exports = async app => {
     res.status(200).end();
   });
 
+<<<<<<< HEAD
   app.use(cors()); // all
+=======
+  app.use(cors());
+>>>>>>> ac5937503ad6bd432a8369bc4f6863d5a03ad173
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use(express.static(path.join(__dirname, 'public')));

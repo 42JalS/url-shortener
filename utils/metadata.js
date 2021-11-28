@@ -4,20 +4,18 @@ const cheerio = require('cheerio');
 exports.getTitleOrNULL = async (originalUrl) => {
     const res = await axios.get(originalUrl).catch((error) => {
         if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
+            //console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
         } else if (error.request) {
-        console.log(error.request);
+            console.log(error.request);
         } else {
-        console.log('Error', error.message);
+            console.log('Error', error.message);
         }
-        console.log(error.config);
-    }
-    );
-    console.log(res);
+    });
     if (res === undefined)
         return null;
+    console.log(res);
     const {data} = res;
     console.log("getTitle");
     const $ = cheerio.load(data);

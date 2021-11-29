@@ -108,8 +108,7 @@ curl https://YOUR_DOMAIN.COM/url \
 
 | 속성 | 타입 | 설명 |
 | --- | --- | --- |
-| message | string | 응답에 성공하면 ok
-또는 오류 메시지를 반환 |
+| message | string | 응답에 성공하면 ok 또는 오류 메시지를 반환 |
 | status | string | HTTP 상태 코드 |
 | data.id | string | 단축 URL의 해시 정보 |
 | data.url | string | 단축된 URL |
@@ -122,12 +121,12 @@ curl https://YOUR_DOMAIN.COM/url \
 {
 	"message":"ok",
 	"status":"200",
-  "data": {
+	"data": {
 		"id":"61a33012b2cf8248701fc65c",
 		"url":"https://YOUR_DOMAIN.COM/my-cat",
 		"originalUrl":"https://www.google.com/search?q=cat&newwindow=1&sxsrf=AOaemvIqIxvEfN6ZNsv7283UL2p36HTlZg:1638087698316&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjGifma0Lr0AhUur1YBHfoCAqAQ_AUoAXoECAIQAw&biw=1113&bih=796&dpr=2",
 		"createdTime":"2021-11-28T07:30:26.424Z"
-  }
+	}
 }
 ```
 
@@ -186,8 +185,7 @@ curl https://YOUR_DOMAIN.COM/custom-url \
 
 | 속성 | 타입 | 설명 |
 | --- | --- | --- |
-| message | string | 응답에 성공하면 ok
-또는 오류 메시지를 반환 |
+| message | string | 응답에 성공하면 ok 또는 오류 메시지를 반환 |
 | status | string | HTTP 상태 코드 |
 | data.id | string | 단축 URL의 해시 정보 |
 | data.url | string | 단축된 URL |
@@ -200,12 +198,12 @@ curl https://YOUR_DOMAIN.COM/custom-url \
 {
 	"message":"ok",
 	"status":"200",
-  "data": {
+	"data": {
 		"id":"61a33012b2cf8248701fc65c",
 		"url":"https://localhost/my-cat",
 		"originalUrl":"https://www.google.com/search?q=cat&newwindow=1&sxsrf=AOaemvIqIxvEfN6ZNsv7283UL2p36HTlZg:1638087698316&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjGifma0Lr0AhUur1YBHfoCAqAQ_AUoAXoECAIQAw&biw=1113&bih=796&dpr=2",
 		"createdTime":"2021-11-28T07:30:26.424Z"
-  }
+	}
 }
 ```
 
@@ -264,8 +262,7 @@ curl https://your-url/emoji-url \
 
 | 속성 | 타입 | 설명 |
 | --- | --- | --- |
-| message | string | 응답에 성공하면 ok
-또는 오류 메시지를 반환 |
+| message | string | 응답에 성공하면 ok 또는 오류 메시지를 반환 |
 | status | string | HTTP 상태 코드 |
 | data.id | string | 단축 URL의 해시 정보 |
 | data.url | string | 단축된 URL |
@@ -278,12 +275,12 @@ curl https://your-url/emoji-url \
 {
 	"message":"ok",
 	"status":"200",
-  "data": {
+	"data": {
 		"id":"61a33012b2cf8248701fc65c",
 		"url":"https://localhost/my-cat",
 		"originalUrl":"https://www.google.com/search?q=cat&newwindow=1&sxsrf=AOaemvIqIxvEfN6ZNsv7283UL2p36HTlZg:1638087698316&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjGifma0Lr0AhUur1YBHfoCAqAQ_AUoAXoECAIQAw&biw=1113&bih=796&dpr=2",
 		"createdTime":"2021-11-28T07:30:26.424Z"
-  }
+	}
 }
 ```
 
@@ -340,8 +337,7 @@ curl https://YOUR_DOMAIN.COM/title-url \
 
 | 속성 | 타입 | 설명 |
 | --- | --- | --- |
-| message | string | 응답에 성공하면 ok
-또는 오류 메시지를 반환 |
+| message | string | 응답에 성공하면 ok 또는 오류 메시지를 반환 |
 | status | string | HTTP 상태 코드 |
 | data.id | string | 단축 URL의 해시 정보 |
 | data.url | string | 단축된 URL |
@@ -354,12 +350,12 @@ curl https://YOUR_DOMAIN.COM/title-url \
 {
 	"message":"ok",
 	"status":"200",
-  "data": {
+	"data": {
 		"id":"61a33012b2cf8248701fc65c",
 		"url":"https://YOUR_DOMAIN.COM/my-cat",
 		"originalUrl":"https://www.google.com/search?q=cat&newwindow=1&sxsrf=AOaemvIqIxvEfN6ZNsv7283UL2p36HTlZg:1638087698316&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjGifma0Lr0AhUur1YBHfoCAqAQ_AUoAXoECAIQAw&biw=1113&bih=796&dpr=2",
 		"createdTime":"2021-11-28T07:30:26.424Z"
-  }
+	}
 }
 ```
 
@@ -424,8 +420,7 @@ curl https://YOUR_DOMAIN.COM/original-url/:convertedUrl \
 
 | 속성 | 타입 | 설명 |
 | --- | --- | --- |
-| message | string | 응답에 성공하면 ok
-또는 오류 메시지를 반환 |
+| message | string | 응답에 성공하면 ok 또는 오류 메시지를 반환 |
 | status | string | HTTP 상태 코드 |
 | data.id | string | 단축 URL의 해시 정보 |
 | data.url | string | 단축된 URL |
@@ -438,12 +433,12 @@ curl https://YOUR_DOMAIN.COM/original-url/:convertedUrl \
 {
 	"message":"ok",
 	"status":"200",
-  "data": {
+	"data": {
 		"id":"61a33012b2cf8248701fc65c",
 		"url":"https://YOUR_DOMAIN.COM/google",
 		"originalUrl":"https://www.google.com",
 		"createdTime":"2021-11-28T07:30:26.424Z"
-  }
+	}
 }
 ```
 
